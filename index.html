@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accès Examen - Salon de Beauté Lemaly</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💅</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8c4c4 0%, #d4a5a5 50%, #c08b8b 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(212, 165, 165, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #d4a5a5 0%, #c08b8b 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1.5" fill="%23ffffff" opacity="0.1"/></svg>') repeat;
+            background-size: 40px 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .form-container {
+            padding: 40px 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #8b6b6b;
+            font-size: 1.1em;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #d4a5a5;
+            background: white;
+            box-shadow: 0 0 15px rgba(212, 165, 165, 0.2);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #d4a5a5 0%, #c08b8b 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(212, 165, 165, 0.4);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(212, 165, 165, 0.5);
+            background: linear-gradient(135deg, #c08b8b 0%, #a67171 100%);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .error-message {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            color: #721c24;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #dc3545;
+            display: none;
+            font-weight: bold;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #28a745;
+            display: none;
+            font-weight: bold;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            color: #d4a5a5;
+            font-weight: bold;
+            padding: 20px 0;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #d4a5a5;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #d4a5a5;
+        }
+        
+        .info-box h3 {
+            color: #8b6b6b;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .info-box ul {
+            color: #666;
+            line-height: 1.6;
+            margin-left: 20px;
+        }
+        
+        .tagline {
+            text-align: center;
+            color: #8b6b6b;
+            font-style: italic;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .back-link a {
+            color: #d4a5a5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 Accès à l'Examen</h1>
+            <p>Formation Extensions Capillaires - Salon Lemaly</p>
+        </div>
+        
+        <div class="form-container">
+            <div class="info-box">
+                <h3>📋 Instructions d'accès</h3>
+                <ul>
+                    <li>Saisissez le code d'accès fourni par votre formateur</li>
+                    <li>Vos informations personnelles sont requises</li>
+                    <li>La vérification se fait automatiquement</li>
+                    <li>Redirection immédiate vers l'examen si autorisé</li>
+                </ul>
+            </div>
+            
+            <div id="error-message" class="error-message"></div>
+            <div id="success-message" class="success-message"></div>
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>🔍 Vérification du code d'accès en cours...</p>
+            </div>
+            
+            <form id="accessForm">
+                <div class="form-group">
+                    <label for="code">🔑 Code d'accès *</label>
+                    <input type="text" id="code" name="code" placeholder="Ex: LEM2024-7K8M" required maxlength="13">
+                    <small style="color: #666; font-size: 0.9em;">Format: LEM2024-XXXX</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="name">👤 Nom complet *</label>
+                    <input type="text" id="name" name="name" placeholder="Prénom et nom de famille" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">📧 Adresse email *</label>
+                    <input type="email" id="email" name="email" placeholder="votre.email@exemple.com" required>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    ✨ Accéder à mon examen ✨
+                </button>
+            </form>
+            
+            <div class="back-link">
+                <a href="#" onclick="window.history.back()">← Retour au site principal</a>
+            </div>
+            
+            <div class="tagline">
+                💅 Excellence • Élégance • Expertise 💅
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Liste des codes d'accès valides - MODIFIEZ CETTE LISTE
+        const validCodes = [
+            'LEM2024-1',
+            '
+
+        ];
+        
+        // URL de votre formulaire Google Forms d'examen
+        // IMPORTANT: REMPLACEZ cette URL par celle de votre formulaire d'examen
+        const EXAM_FORM_URL = 'https://forms.gle/REMPLACEZ_PAR_VOTRE_LIEN';
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('accessForm');
+            const codeInput = document.getElementById('code');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            
+            // Auto-formatage du code
+            codeInput.addEventListener('input', function(e) {
+                let value = e.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, '');
+                // Auto-ajout du tiret après LEM2024
+                if (value.length === 7 && !value.includes('-')) {
+                    value = value.slice(0, 7) + '-' + value.slice(7);
+                }
+                e.target.value = value;
+            });
+            
+            // Validation du formulaire
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const code = codeInput.value.trim().toUpperCase();
+                const name = nameInput.value.trim();
+                const email = emailInput.value.trim();
+                
+                // Reset des messages
+                hideMessages();
+                
+                // Validation des champs
+                if (!code || !name || !email) {
+                    showError('⚠️ Veuillez remplir tous les champs obligatoires.');
+                    return;
+                }
+                
+                if (!isValidEmail(email)) {
+                    showError('📧 Veuillez saisir une adresse email valide.');
+                    return;
+                }
+                
+                if (!isValidCodeFormat(code)) {
+                    showError('🔑 Format de code invalide. Utilisez le format: LEM2024-XXXX');
+                    return;
+                }
+                
+                // Affichage du loading
+                showLoading();
+                
+                // Simulation d'une vérification (délai pour l'effet visuel)
+                setTimeout(() => {
+                    if (validCodes.includes(code)) {
+                        handleValidCode(code, name, email);
+                    } else {
+                        handleInvalidCode();
+                    }
+                }, 2000);
+            });
+            
+            function handleValidCode(code, name, email) {
+                hideLoading();
+                
+                // Sauvegarde des données pour suivi
+                const accessData = {
+                    timestamp: new Date().toISOString(),
+                    code: code,
+                    name: name,
+                    email: email,
+                    status: 'ACCÈS AUTORISÉ'
+                };
+                
+                // Stockage local pour backup
+                localStorage.setItem('examAccess_' + code, JSON.stringify(accessData));
+                
+                showSuccess(`✅ Accès autorisé pour ${name}! Redirection vers votre examen dans 3 secondes...`);
+                
+                // Redirection vers l'examen
+                setTimeout(() => {
+                    if (EXAM_FORM_URL === 'https://docs.google.com/forms/d/e/1FAIpQLSelklc-bxFAFVs7uXiVNXUNj5bFqpa2s1bvprN-JgAKh62kvg/viewform?usp=preview') {
+                        alert('⚠️ CONFIGURATION REQUISE:\n\nVeuillez remplacer l\'URL de l\'examen dans le code source par votre vrai lien Google Forms.\n\nCherchez "EXAM_FORM_URL" dans le code.');
+                    } else {
+                        window.location.href = EXAM_FORM_URL;
+                    }
+                }, 3000);
+            }
+            
+            function handleInvalidCode() {
+                hideLoading();
+                showError('❌ Code d\'accès invalide. Vérifiez votre code ou contactez votre formateur Lemaly.');
+                
+                // Focus sur le champ code pour faciliter la correction
+                codeInput.focus();
+                codeInput.select();
+            }
+            
+            function showError(message) {
+                const errorDiv = document.getElementById('error-message');
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+                errorDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+            
+            function showSuccess(message) {
+                const successDiv = document.getElementById('success-message');
+                successDiv.textContent = message;
+                successDiv.style.display = 'block';
+                successDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+            
+            function showLoading() {
+                document.getElementById('loading').style.display = 'block';
+                document.getElementById('submitBtn').disabled = true;
+                document.getElementById('submitBtn').textContent = 'Vérification...';
+            }
+            
+            function hideLoading() {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('submitBtn').disabled = false;
+                document.getElementById('submitBtn').textContent = '✨ Accéder à mon examen ✨';
+            }
+            
+            function hideMessages() {
+                document.getElementById('error-message').style.display = 'none';
+                document.getElementById('success-message').style.display = 'none';
+            }
+            
+            function isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+            
+            function isValidCodeFormat(code) {
+                const codeRegex = /^LEM2024-[A-Z0-9]{4}$/;
+                return codeRegex.test(code);
+            }
+        });
+        
+        // Empêcher le clic droit pour protéger un peu le code
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+        
+        // Message de console pour les curieux
+        console.log('🔐 Page d\'accès sécurisée - Salon de Beauté Lemaly');
+        console.log('💅 Développé avec excellence et expertise');
+    </script>
+</body>
+</html>
