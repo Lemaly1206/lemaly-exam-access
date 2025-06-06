@@ -260,9 +260,9 @@
                 <h3>📋 Instructions d'accès</h3>
                 <ul>
                     <li>Saisissez le code d'accès fourni par votre formateur</li>
-                    <li>Vos informations personnelles sont requises</li>
                     <li>La vérification se fait automatiquement</li>
                     <li>Redirection immédiate vers l'examen si autorisé</li>
+                    <li>Vous saisirez vos informations personnelles dans l'examen</li>
                 </ul>
             </div>
             
@@ -276,22 +276,12 @@
             <form id="accessForm">
                 <div class="form-group">
                     <label for="code">🔑 Code d'accès *</label>
-                    <input type="text" id="code" name="code" placeholder="Ex: LEM2024-7K8M" required maxlength="13">
-                    <small style="color: #666; font-size: 0.9em;">Format: LEM2024-XXXX</small>
-                </div>
-                
-                <div class="form-group">
-                    <label for="name">👤 Nom complet *</label>
-                    <input type="text" id="name" name="name" placeholder="Prénom et nom de famille" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">📧 Adresse email *</label>
-                    <input type="email" id="email" name="email" placeholder="votre.email@exemple.com" required>
+                    <input type="text" id="code" name="code" placeholder="Ex: Lemaly2025-XXX" required maxlength="15">
+                    <small style="color: #666; font-size: 0.9em;">Saisissez le code fourni par votre formateur</small>
                 </div>
                 
                 <button type="submit" class="submit-btn" id="submitBtn">
-                    ✨ Accéder à mon examen ✨
+                    ✨ Accéder à l'examen ✨
                 </button>
             </form>
             
@@ -306,46 +296,24 @@
     </div>
 
     <script>
-        // Liste des codes d'accès valides - MODIFIEZ CETTE LISTE
+        // Code d'accès valide unique
         const validCodes = [
-            'LEM2024-7K8M',
-            'LEM2024-9F3N',
-            'LEM2024-2H6P',
-            'LEM2024-5R9T',
-            'LEM2024-8W1Y',
-            'LEM2024-3Q7U',
-            'LEM2024-6Z4E',
-            'LEM2024-1X5A',
-            'LEM2024-4V8S',
-            'LEM2024-7C2D',
-            'LEM2024-9B6F',
-            'LEM2024-2M1G',
-            'LEM2024-5J8H',
-            'LEM2024-8L3K',
-            'LEM2024-3N7R',
-            'LEM2024-6T4W',
-            'LEM2024-1P9Q',
-            'LEM2024-4Y5Z',
-            'LEM2024-7U2X',
-            'LEM2024-8A6V'
+            'LEMALY2025-1'
         ];
         
         // URL de votre formulaire Google Forms d'examen
-        // IMPORTANT: REMPLACEZ cette URL par celle de votre formulaire d'examen
-        const EXAM_FORM_URL = 'https://forms.gle/REMPLACEZ_PAR_VOTRE_LIEN';
+        const EXAM_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSelklc-bxFAFVs7uXiVNXUNj5bFqpa2s1bvprN-JgAKh62kvg/viewform';
         
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('accessForm');
             const codeInput = document.getElementById('code');
-            const nameInput = document.getElementById('name');
-            const emailInput = document.getElementById('email');
             
             // Auto-formatage du code
             codeInput.addEventListener('input', function(e) {
                 let value = e.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, '');
-                // Auto-ajout du tiret après LEM2024
-                if (value.length === 7 && !value.includes('-')) {
-                    value = value.slice(0, 7) + '-' + value.slice(7);
+                // Auto-ajout du tiret après LEMALY2025
+                if (value.length === 10 && !value.includes('-')) {
+                    value = value.slice(0, 10) + '-' + value.slice(10);
                 }
                 e.target.value = value;
             });
@@ -355,25 +323,18 @@
                 e.preventDefault();
                 
                 const code = codeInput.value.trim().toUpperCase();
-                const name = nameInput.value.trim();
-                const email = emailInput.value.trim();
                 
                 // Reset des messages
                 hideMessages();
                 
-                // Validation des champs
-                if (!code || !name || !email) {
-                    showError('⚠️ Veuillez remplir tous les champs obligatoires.');
-                    return;
-                }
-                
-                if (!isValidEmail(email)) {
-                    showError('📧 Veuillez saisir une adresse email valide.');
+                // Validation du code
+                if (!code) {
+                    showError('⚠️ Veuillez saisir votre code d\'accès.');
                     return;
                 }
                 
                 if (!isValidCodeFormat(code)) {
-                    showError('🔑 Format de code invalide. Utilisez le format: LEM2024-XXXX');
+                    showError('🔑 Format de code invalide. Utilisez le format: Lemaly2025-X');
                     return;
                 }
                 
@@ -383,37 +344,31 @@
                 // Simulation d'une vérification (délai pour l'effet visuel)
                 setTimeout(() => {
                     if (validCodes.includes(code)) {
-                        handleValidCode(code, name, email);
+                        handleValidCode(code);
                     } else {
                         handleInvalidCode();
                     }
                 }, 2000);
             });
             
-            function handleValidCode(code, name, email) {
+            function handleValidCode(code) {
                 hideLoading();
                 
-                // Sauvegarde des données pour suivi
+                // Sauvegarde du code pour suivi
                 const accessData = {
                     timestamp: new Date().toISOString(),
                     code: code,
-                    name: name,
-                    email: email,
                     status: 'ACCÈS AUTORISÉ'
                 };
                 
                 // Stockage local pour backup
                 localStorage.setItem('examAccess_' + code, JSON.stringify(accessData));
                 
-                showSuccess(`✅ Accès autorisé pour ${name}! Redirection vers votre examen dans 3 secondes...`);
+                showSuccess('✅ Code valide ! Redirection vers votre examen dans 3 secondes...');
                 
                 // Redirection vers l'examen
                 setTimeout(() => {
-                    if (EXAM_FORM_URL === 'https://forms.gle/REMPLACEZ_PAR_VOTRE_LIEN') {
-                        alert('⚠️ CONFIGURATION REQUISE:\n\nVeuillez remplacer l\'URL de l\'examen dans le code source par votre vrai lien Google Forms.\n\nCherchez "EXAM_FORM_URL" dans le code.');
-                    } else {
-                        window.location.href = EXAM_FORM_URL;
-                    }
+                    window.location.href = EXAM_FORM_URL;
                 }, 3000);
             }
             
@@ -449,7 +404,7 @@
             function hideLoading() {
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('submitBtn').disabled = false;
-                document.getElementById('submitBtn').textContent = '✨ Accéder à mon examen ✨';
+                document.getElementById('submitBtn').textContent = '✨ Accéder à l\'examen ✨';
             }
             
             function hideMessages() {
@@ -457,13 +412,8 @@
                 document.getElementById('success-message').style.display = 'none';
             }
             
-            function isValidEmail(email) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                return emailRegex.test(email);
-            }
-            
             function isValidCodeFormat(code) {
-                const codeRegex = /^LEM2024-[A-Z0-9]{4}$/;
+                const codeRegex = /^LEMALY2025-[0-9]+$/;
                 return codeRegex.test(code);
             }
         });
