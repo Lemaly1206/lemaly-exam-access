@@ -276,8 +276,8 @@
             <form id="accessForm">
                 <div class="form-group">
                     <label for="code">🔑 Code d'accès *</label>
-                    <input type="text" id="code" name="code" placeholder="Ex: Lemaly2025-XXX" required maxlength="15">
-                    <small style="color: #666; font-size: 0.9em;">Saisissez le code fourni par votre formateur</small>
+                    <input type="text" id="code" name="code" placeholder="Ex: LEM2024-7K8M" required maxlength="13">
+                    <small style="color: #666; font-size: 0.9em;">Format: LEM2024-XXXX</small>
                 </div>
                 
                 <div class="form-group">
@@ -306,13 +306,33 @@
     </div>
 
     <script>
-        // Code d'accès valide unique
+        // Liste des codes d'accès valides - MODIFIEZ CETTE LISTE
         const validCodes = [
-            'LEMALY2025-1'
+            'LEM2024-7K8M',
+            'LEM2024-9F3N',
+            'LEM2024-2H6P',
+            'LEM2024-5R9T',
+            'LEM2024-8W1Y',
+            'LEM2024-3Q7U',
+            'LEM2024-6Z4E',
+            'LEM2024-1X5A',
+            'LEM2024-4V8S',
+            'LEM2024-7C2D',
+            'LEM2024-9B6F',
+            'LEM2024-2M1G',
+            'LEM2024-5J8H',
+            'LEM2024-8L3K',
+            'LEM2024-3N7R',
+            'LEM2024-6T4W',
+            'LEM2024-1P9Q',
+            'LEM2024-4Y5Z',
+            'LEM2024-7U2X',
+            'LEM2024-8A6V'
         ];
         
         // URL de votre formulaire Google Forms d'examen
-        const EXAM_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSelklc-bxFAFVs7uXiVNXUNj5bFqpa2s1bvprN-JgAKh62kvg/viewform';
+        // IMPORTANT: REMPLACEZ cette URL par celle de votre formulaire d'examen
+        const EXAM_FORM_URL = 'https://forms.gle/REMPLACEZ_PAR_VOTRE_LIEN';
         
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('accessForm');
@@ -323,9 +343,9 @@
             // Auto-formatage du code
             codeInput.addEventListener('input', function(e) {
                 let value = e.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, '');
-                // Auto-ajout du tiret après LEMALY2025
-                if (value.length === 10 && !value.includes('-')) {
-                    value = value.slice(0, 10) + '-' + value.slice(10);
+                // Auto-ajout du tiret après LEM2024
+                if (value.length === 7 && !value.includes('-')) {
+                    value = value.slice(0, 7) + '-' + value.slice(7);
                 }
                 e.target.value = value;
             });
@@ -353,7 +373,7 @@
                 }
                 
                 if (!isValidCodeFormat(code)) {
-                    showError('🔑 Format de code invalide. Utilisez le format: Lemaly2025-X');
+                    showError('🔑 Format de code invalide. Utilisez le format: LEM2024-XXXX');
                     return;
                 }
                 
@@ -389,7 +409,11 @@
                 
                 // Redirection vers l'examen
                 setTimeout(() => {
-                    window.location.href = EXAM_FORM_URL;
+                    if (EXAM_FORM_URL === 'https://forms.gle/REMPLACEZ_PAR_VOTRE_LIEN') {
+                        alert('⚠️ CONFIGURATION REQUISE:\n\nVeuillez remplacer l\'URL de l\'examen dans le code source par votre vrai lien Google Forms.\n\nCherchez "EXAM_FORM_URL" dans le code.');
+                    } else {
+                        window.location.href = EXAM_FORM_URL;
+                    }
                 }, 3000);
             }
             
@@ -439,7 +463,7 @@
             }
             
             function isValidCodeFormat(code) {
-                const codeRegex = /^LEMALY2025-[0-9]+$/;
+                const codeRegex = /^LEM2024-[A-Z0-9]{4}$/;
                 return codeRegex.test(code);
             }
         });
