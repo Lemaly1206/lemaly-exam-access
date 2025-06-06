@@ -276,8 +276,8 @@
             <form id="accessForm">
                 <div class="form-group">
                     <label for="code">🔑 Code d'accès *</label>
-                    <input type="text" id="code" name="code" placeholder="Ex: LEM2024-7K8M" required maxlength="13">
-                    <small style="color: #666; font-size: 0.9em;">Format: LEM2024-XXXX</small>
+                    <input type="text" id="code" name="code" placeholder="Ex: Lemaly2025-1" required maxlength="15">
+                    <small style="color: #666; font-size: 0.9em;">Format: Lemaly2025-X</small>
                 </div>
                 
                 <div class="form-group">
@@ -306,16 +306,13 @@
     </div>
 
     <script>
-        // Liste des codes d'accès valides - MODIFIEZ CETTE LISTE
+        // Code d'accès valide unique
         const validCodes = [
-            'LEM2024-1',
-            '
-
+            'LEMALY2025-1'
         ];
         
         // URL de votre formulaire Google Forms d'examen
-        // IMPORTANT: REMPLACEZ cette URL par celle de votre formulaire d'examen
-        const EXAM_FORM_URL = 'https://forms.gle/REMPLACEZ_PAR_VOTRE_LIEN';
+        const EXAM_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSelklc-bxFAFVs7uXiVNXUNj5bFqpa2s1bvprN-JgAKh62kvg/viewform';
         
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('accessForm');
@@ -326,9 +323,9 @@
             // Auto-formatage du code
             codeInput.addEventListener('input', function(e) {
                 let value = e.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, '');
-                // Auto-ajout du tiret après LEM2024
-                if (value.length === 7 && !value.includes('-')) {
-                    value = value.slice(0, 7) + '-' + value.slice(7);
+                // Auto-ajout du tiret après LEMALY2025
+                if (value.length === 10 && !value.includes('-')) {
+                    value = value.slice(0, 10) + '-' + value.slice(10);
                 }
                 e.target.value = value;
             });
@@ -356,7 +353,7 @@
                 }
                 
                 if (!isValidCodeFormat(code)) {
-                    showError('🔑 Format de code invalide. Utilisez le format: LEM2024-XXXX');
+                    showError('🔑 Format de code invalide. Utilisez le format: Lemaly2025-X');
                     return;
                 }
                 
@@ -392,11 +389,7 @@
                 
                 // Redirection vers l'examen
                 setTimeout(() => {
-                    if (EXAM_FORM_URL === 'https://docs.google.com/forms/d/e/1FAIpQLSelklc-bxFAFVs7uXiVNXUNj5bFqpa2s1bvprN-JgAKh62kvg/viewform?usp=preview') {
-                        alert('⚠️ CONFIGURATION REQUISE:\n\nVeuillez remplacer l\'URL de l\'examen dans le code source par votre vrai lien Google Forms.\n\nCherchez "EXAM_FORM_URL" dans le code.');
-                    } else {
-                        window.location.href = EXAM_FORM_URL;
-                    }
+                    window.location.href = EXAM_FORM_URL;
                 }, 3000);
             }
             
@@ -446,7 +439,7 @@
             }
             
             function isValidCodeFormat(code) {
-                const codeRegex = /^LEM2024-[A-Z0-9]{4}$/;
+                const codeRegex = /^LEMALY2025-[0-9]+$/;
                 return codeRegex.test(code);
             }
         });
