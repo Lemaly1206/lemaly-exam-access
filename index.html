@@ -1,162 +1,760 @@
-<!-- Fichier : acces-examen.html -->
-<!DOCTYPE html>
+<a href="#" class="logo">Salon Lemaly</a>
+            <ul class="nav-links">
+                <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Accès Examen - Salon de Beauté Lemaly</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💅</text></svg>" />
-  <style>
-    /* (le style complet reste inchangé ici – tu peux copier celui que tu as déjà, rien à corriger dans le CSS) */
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salon de Beauté Lemaly - Formation Extensions Capillaires</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💅</text></svg>" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #2c1810;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #d4a574 0%, #e8c5a0 50%, #f2d5b7 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #2c1810;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="beautyPattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(186,85,138,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23beautyPattern)"/></svg>');
+            opacity: 0.4;
+        }
+
+        .hero-content {
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            font-family: 'Georgia', serif;
+            letter-spacing: 2px;
+        }
+
+        .hero .subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #ba558a;
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 40px;
+            background: linear-gradient(135deg, #ba558a, #d4a574);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 25px rgba(186,85,138,0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(186,85,138,0.4);
+            background: linear-gradient(135deg, #d4a574, #ba558a);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(186,85,138,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #ba558a;
+            text-decoration: none;
+            font-family: 'Georgia', serif;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #2c1810;
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s ease;
+            position: relative;
+            font-size: 1.05rem;
+        }
+
+        .nav-links a:hover {
+            color: #ba558a;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ba558a, #d4a574);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background: linear-gradient(180deg, #faf8f5 0%, #f5f0eb 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: #2c1810;
+            margin-bottom: 1rem;
+            font-family: 'Georgia', serif;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: #8b6f4a;
+            max-width: 700px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(186,85,138,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(212,165,116,0.2);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ba558a, #d4a574);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(186,85,138,0.15);
+        }
+
+        .service-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #ba558a, #d4a574);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            box-shadow: 0 8px 20px rgba(186,85,138,0.3);
+        }
+
+        .service-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #2c1810;
+            font-family: 'Georgia', serif;
+            font-weight: 400;
+        }
+
+        .service-card p {
+            color: #8b6f4a;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            color: #2c1810;
+            font-family: 'Georgia', serif;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: #8b6f4a;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #faf8f5, #f5f0eb);
+            border-radius: 15px;
+            border: 1px solid rgba(212,165,116,0.2);
+        }
+
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 400;
+            color: #ba558a;
+            display: block;
+            font-family: 'Georgia', serif;
+        }
+
+        .stat-label {
+            color: #8b6f4a;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+
+        .about-visual {
+            background: linear-gradient(135deg, #ba558a, #d4a574);
+            border-radius: 25px;
+            height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(186,85,138,0.2);
+        }
+
+        .about-visual::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 15px,
+                rgba(255,255,255,0.05) 15px,
+                rgba(255,255,255,0.05) 30px
+            );
+            animation: movePattern 25s linear infinite;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #2c1810, #4a3426);
+            color: #f5f0eb;
+            padding: 60px 0 25px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: #d4a574;
+            font-family: 'Georgia', serif;
+            font-weight: 400;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #e8c5a0;
+            text-decoration: none;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .footer-section a:hover {
+            color: #ba558a;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #5a4437;
+            color: #c7b299;
+            font-style: italic;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes movePattern {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Floating elements */
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(186,85,138,0.15);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 15%;
+            left: 8%;
+            animation-delay: 0s;
+            background: rgba(212,165,116,0.2);
+        }
+
+        .floating-element:nth-child(2) {
+            width: 70px;
+            height: 70px;
+            top: 65%;
+            right: 12%;
+            animation-delay: 3s;
+            background: rgba(186,85,138,0.15);
+        }
+
+        .floating-element:nth-child(3) {
+            width: 50px;
+            height: 50px;
+            top: 35%;
+            left: 85%;
+            animation-delay: 6s;
+            background: rgba(212,165,116,0.18);
+        }
+
+        .floating-element:nth-child(4) {
+            width: 80px;
+            height: 80px;
+            top: 80%;
+            left: 20%;
+            animation-delay: 2s;
+            background: rgba(186,85,138,0.12);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-25px) rotate(180deg); opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>🔐 Accès à l'Examen</h1>
-      <p>Formation Extensions Capillaires - Salon Lemaly</p>
-    </div>
-
-    <div class="form-container">
-      <div class="info-box">
-        <h3>📋 Instructions d'accès</h3>
-        <ul>
-          <li>Saisissez le code d'accès fourni par votre formateur</li>
-          <li>La vérification se fait automatiquement</li>
-          <li>Redirection immédiate vers l'examen si autorisé</li>
-          <li>Vous saisirez vos informations personnelles dans l'examen</li>
-        </ul>
-      </div>
-
-      <div id="error-message" class="error-message"></div>
-      <div id="success-message" class="success-message"></div>
-      <div id="loading" class="loading">
-        <div class="spinner"></div>
-        <p>🔍 Vérification du code d'accès en cours...</p>
-      </div>
-
-      <form id="accessForm">
-        <div class="form-group">
-          <label for="code">🔑 Code d'accès *</label>
-          <input type="text" id="code" name="code" placeholder="Ex: Lemaly2025-XXX" required maxlength="15" />
-          <small style="color: #666; font-size: 0.9em;">Saisissez le code fourni par votre formateur</small>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Salon Lemaly</a>
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#formation">Formation</a></li>
+                <li><a href="#apropos">À propos</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </div>
-        <button type="submit" class="submit-btn" id="submitBtn">✨ Accéder à l'examen ✨</button>
-      </form>
+    </nav>
 
-      <div class="back-link">
-        <a href="#" onclick="window.history.back()">← Retour au site principal</a>
-      </div>
+    <!-- Hero Section -->
+    <section class="hero" id="accueil">
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+        <div class="hero-content">
+            <h1>💅 Salon Lemaly 💅</h1>
+            <div class="subtitle">Excellence • Élégance • Expertise</div>
+            <p>Formation professionnelle en extensions capillaires. Découvrez les techniques avancées et perfectionnez votre art avec nos experts certifiés.</p>
+            <a href="#formation" class="cta-button">🔐 Accéder à l'examen</a>
+        </div>
+    </section>
 
-      <div class="tagline">💅 Excellence • Élégance • Expertise 💅</div>
-    </div>
-  </div>
+    <!-- Services Section -->
+    <section class="services" id="formation">
+        <div class="container">
+            <div class="section-title">
+                <h2>Notre Formation</h2>
+                <p>Une formation complète et certifiante en extensions capillaires avec les meilleures techniques professionnelles</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">💇‍♀️</div>
+                    <h3>Techniques Avancées</h3>
+                    <p>Maîtrisez les différentes méthodes d'extensions : kératine, clips, tissage et micro-billes avec nos experts.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">✨</div>
+                    <h3>Certification Lemaly</h3>
+                    <p>Obtenez votre certification reconnue dans le secteur de la beauté et démarquez-vous professionnellement.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">👩‍🎓</div>
+                    <h3>Formation Pratique</h3>
+                    <p>Apprentissage sur modèles réels avec supervision personnalisée et matériel professionnel fourni.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <script>
-    const validCodes = ['LEMALY2025-1'];
+    <!-- About Section -->
+    <section class="about" id="apropos">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Salon Lemaly</h2>
+                    <p>Depuis plus de 10 ans, le Salon Lemaly est reconnu comme une référence dans l'art capillaire et la formation professionnelle. Notre expertise en extensions capillaires nous permet de transmettre un savoir-faire d'exception.</p>
+                    <p>Nos formatrices certifiées vous accompagnent dans l'apprentissage des techniques les plus récentes avec une approche personnalisée et professionnelle.</p>
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-number">500+</span>
+                            <span class="stat-label">Élèves formées</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">98%</span>
+                            <span class="stat-label">Taux de réussite</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">10</span>
+                            <span class="stat-label">Années d'expertise</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">24h</span>
+                            <span class="stat-label">Support formation</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <span>💅</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    const EXAM_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSc47G0hxt7IByqvmdRTMFSQgFo6qYA-baEv8PFMCrFszNm2Sw/viewform';
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>📧 formation@salonlemaly.com</p>
+                    <p>📞 +33 1 XX XX XX XX</p>
+                    <p>📍 Paris, France</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Formation</h3>
+                    <p><a href="#">Extensions Kératine</a></p>
+                    <p><a href="#">Extensions Clips</a></p>
+                    <p><a href="#">Certification Lemaly</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Suivez-nous</h3>
+                    <p><a href="#">Instagram</a></p>
+                    <p><a href="#">Facebook</a></p>
+                    <p><a href="#">TikTok</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Salon de Beauté Lemaly • Excellence • Élégance • Expertise</p>
+            </div>
+        </div>
+    </footer>
 
-    document.addEventListener('DOMContentLoaded', function () {
-      const form = document.getElementById('accessForm');
-      const codeInput = document.getElementById('code');
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
 
-      codeInput.addEventListener('input', function (e) {
-        let value = e.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, '');
-        if (value.length === 10 && !value.includes('-')) {
-          value = value.slice(0, 10) + '-' + value.slice(10);
-        }
-        e.target.value = value;
-      });
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(255,255,255,0.98)';
+                nav.style.boxShadow = '0 2px 30px rgba(186,85,138,0.15)';
+            } else {
+                nav.style.background = 'rgba(255,255,255,0.95)';
+                nav.style.boxShadow = '0 2px 20px rgba(186,85,138,0.1)';
+            }
+        });
 
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const code = codeInput.value.trim().toUpperCase();
-        hideMessages();
+        // Button click for exam access
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Create exam access interface
+            const examInterface = document.createElement('div');
+            examInterface.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(44,24,16,0.95);
+                    z-index: 10000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    backdrop-filter: blur(10px);
+                ">
+                    <div style="
+                        background: white;
+                        padding: 3rem;
+                        border-radius: 20px;
+                        max-width: 500px;
+                        width: 90%;
+                        text-align: center;
+                        box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+                        border: 2px solid #d4a574;
+                    ">
+                        <h2 style="color: #ba558a; margin-bottom: 1.5rem; font-family: Georgia, serif;">🔐 Accès à l'Examen</h2>
+                        <p style="color: #8b6f4a; margin-bottom: 2rem; line-height: 1.6;">
+                            Pour accéder à l'examen de certification, veuillez saisir le code d'accès fourni par votre formateur.
+                        </p>
+                        <div id="error-msg" style="color: #d32f2f; margin-bottom: 1rem; display: none;"></div>
+                        <input type="text" id="access-code" placeholder="Code d'accès (ex: LEMALY2025-1)" style="
+                            width: 100%;
+                            padding: 15px;
+                            border: 2px solid #d4a574;
+                            border-radius: 10px;
+                            font-size: 1.1rem;
+                            margin-bottom: 1.5rem;
+                            text-align: center;
+                            text-transform: uppercase;
+                        ">
+                        <div style="display: flex; gap: 1rem; justify-content: center;">
+                            <button onclick="this.closest('div').parentElement.remove()" style="
+                                padding: 12px 25px;
+                                background: #f5f0eb;
+                                color: #8b6f4a;
+                                border: 2px solid #d4a574;
+                                border-radius: 25px;
+                                cursor: pointer;
+                                font-size: 1rem;
+                            ">Annuler</button>
+                            <button onclick="checkAccessCode()" style="
+                                padding: 12px 25px;
+                                background: linear-gradient(135deg, #ba558a, #d4a574);
+                                color: white;
+                                border: none;
+                                border-radius: 25px;
+                                cursor: pointer;
+                                font-size: 1rem;
+                            ">Valider</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(examInterface);
+            document.getElementById('access-code').focus();
+        });
 
-        if (!code) {
-          showError('⚠️ Veuillez saisir votre code d\'accès.');
-          return;
-        }
+        // Access code validation (keeping original functionality)
+        window.checkAccessCode = function() {
+            const code = document.getElementById('access-code').value.toUpperCase().trim();
+            const errorDiv = document.getElementById('error-msg');
+            
+            if (code === 'LEMALY2025-1') {
+                // Store access
+                localStorage.setItem('examAccess_' + code, JSON.stringify({
+                    timestamp: new Date().toISOString(),
+                    code: code,
+                    status: 'ACCÈS AUTORISÉ'
+                }));
+                
+                // Redirect to Google Form
+                window.location.href = 'https://docs.google.com/forms/d/e/1FAIpQLSc47G0hxt7IByqvmdRTMFSQgFo6qYA-baEv8PFMCrFszNm2Sw/viewform';
+            } else {
+                errorDiv.style.display = 'block';
+                errorDiv.textContent = '❌ Code d\'accès invalide. Vérifiez votre code.';
+                document.getElementById('access-code').focus();
+            }
+        };
 
-        if (!isValidCodeFormat(code)) {
-          showError('🔑 Format de code invalide. Utilisez le format: Lemaly2025-X');
-          return;
-        }
+        // Enter key support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && document.getElementById('access-code')) {
+                checkAccessCode();
+            }
+        });
 
-        showLoading();
+        // Service cards animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-        setTimeout(() => {
-          if (validCodes.includes(code)) {
-            handleValidCode(code);
-          } else {
-            handleInvalidCode();
-          }
-        }, 2000);
-      });
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
 
-      function handleValidCode(code) {
-        hideLoading();
-        localStorage.setItem('examAccess_' + code, JSON.stringify({
-          timestamp: new Date().toISOString(),
-          code: code,
-          status: 'ACCÈS AUTORISÉ'
-        }));
-        showSuccess('✅ Code valide ! Redirection vers votre examen dans 3 secondes...');
-        setTimeout(() => {
-          window.location.href = EXAM_FORM_URL;
-        }, 3000);
-      }
-
-      function handleInvalidCode() {
-        hideLoading();
-        showError('❌ Code d\'accès invalide. Vérifiez votre code ou contactez votre formateur Lemaly.');
-        codeInput.focus();
-        codeInput.select();
-      }
-
-      function showError(message) {
-        const errorDiv = document.getElementById('error-message');
-        errorDiv.textContent = message;
-        errorDiv.style.display = 'block';
-        errorDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-
-      function showSuccess(message) {
-        const successDiv = document.getElementById('success-message');
-        successDiv.textContent = message;
-        successDiv.style.display = 'block';
-        successDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-
-      function showLoading() {
-        document.getElementById('loading').style.display = 'block';
-        document.getElementById('submitBtn').disabled = true;
-        document.getElementById('submitBtn').textContent = 'Vérification...';
-      }
-
-      function hideLoading() {
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('submitBtn').disabled = false;
-        document.getElementById('submitBtn').textContent = '✨ Accéder à l\'examen ✨';
-      }
-
-      function hideMessages() {
-        document.getElementById('error-message').style.display = 'none';
-        document.getElementById('success-message').style.display = 'none';
-      }
-
-      function isValidCodeFormat(code) {
-        return /^LEMALY2025-[0-9]+$/.test(code);
-      }
-    });
-
-    document.addEventListener('contextmenu', function (e) {
-      e.preventDefault();
-    });
-
-    console.log('🔐 Page d\'accès sécurisée - Salon de Beauté Lemaly');
-    console.log('💅 Développé avec excellence et expertise');
-  </script>
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
 </body>
 </html>
